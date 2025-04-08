@@ -1,86 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Health Check-in</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(to bottom, #fecaca, #99f6e4);
-        }
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 24px;
-            width: 100%;
-            max-width: 400px;
-        }
-        h1 {
-            color: #0f766e;
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-        p {
-            color: #64748b;
-            margin-bottom: 16px;
-        }
-        textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 8px;
-            border: 2px solid #99f6e4;
-            border-radius: 4px;
-            font-size: 16px;
-            margin-bottom: 16px;
-        }
-        textarea:focus {
-            outline: none;
-            border-color: #2dd4bf;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #14b8a6;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #0d9488;
-        }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h1>How are you feeling today?</h1>
-        <p>Share your thoughts in 2-3 sentences. We're here to listen.</p>
-        <textarea id="thoughtsInput" placeholder="Type your thoughts here..."></textarea>
-        <button onclick="submitThoughts()">Share</button>
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>My Website</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="header">
+      <h1 id="titlefn">Website Title</h1>
     </div>
 
-    <script>
-        function submitThoughts() {
-            const thoughts = document.getElementById('thoughtsInput').value;
-            if (thoughts.trim() !== '') {
-                // Here you would typically send the input to your backend or process it
-                console.log('Submitted thoughts:', thoughts);
-                // Clear the input after submission
-                document.getElementById('thoughtsInput').value = '';
-                alert('Thank you for sharing your thoughts!');
-            } else {
-                alert('Please enter your thoughts before submitting.');
-            }
-        }
-    </script>
-</body>
+    
+
+    <p id="paragraph">This is a paragraph for basic testing.</p>
+
+   
+
+    <ul>
+      <li>Item One</li>
+      <li>Item Two</li>
+      <li>Item Three</li>
+    </ul>
+
+    <a href="#">Sample Link</a>
+
+    <script src="scripts/main.js"></script>
+  </body>
 </html>
