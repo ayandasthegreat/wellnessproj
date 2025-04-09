@@ -2,8 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-      "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
   
   body {
@@ -43,21 +42,10 @@
     overflow: hidden;
   }
   
-  .card-container {
+  .card {
     width: 100%;
     max-width: 500px;
-    position: relative;
-  }
-  
-  
-  
-  .next-card {
-    position: absolute;
-    top: 0;
-    left: calc(100% + 20px);
-    width: 100%;
-    height: 100%;
-    transform: translateX(0);
+    text-align: center;
   }
   
   h2 {
@@ -106,38 +94,8 @@
     cursor: not-allowed;
   }
   
-  .secondary-button {
-    margin-top: 1rem;
-  }
-  
   .hidden {
     display: none;
-  }
-  
-  #submittedThoughts {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 1rem;
-  }
-  
-  .swipe-indicator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3949ab;
-    animation: pulse 1.5s infinite;
-  }
-  
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.6;
-    }
   }
   
   footer {
@@ -147,45 +105,62 @@
     font-size: 0.875rem;
   }
   
-  /* === LOADER ANIMATION STYLES === */
-  .container-loader {
-    display: flex;
-    flex-wrap: wrap;
-    place-content: center;
+  /* Prompt */
+  #breathingPrompt {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  #breathingPrompt p {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  #breathingPrompt button {
+    width: auto;
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    background-color: #5c6bc0;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #breathingPrompt button:hover {
+    background-color: #3f51b5;
+  }
+  
+  /* Breathing Text */
+  .breathing-text {
+    font-size: 2rem;
+    color: #3949ab;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  /* Line Track + Ball */
+  .line-track {
     width: 100%;
-    margin-top: 2rem;
-  }
-  
-  .loader {
-    width: 300px;
-    height: 300px;
+    max-width: 400px;
+    height: 4px;
+    background-color: #c5cae9;
+    margin: 0 auto;
     position: relative;
-    transform-style: preserve-3d;
-    transform: perspective(500px) rotateX(60deg);
+    border-radius: 2px;
+    overflow: visible;
   }
   
-  @media (width <= 1111px) {
-    .loader {
-      zoom: 0.7;
-    }
-  }
-  
-  .aro {
+  .ball {
     position: absolute;
-    inset: calc(var(--s) * 10px);
-    border: 1px solid red;
-    
-    clip-path: polygon(0 100%, 50% 0, 100% 100%);
-    animation: up_and_down 3s infinite ease-in-out both;
-    animation-delay: calc(var(--s) * -0.1s);
-  }
-  
-  @keyframes up_and_down {
-    0%, 100% {
-      transform: translateZ(-100px);
-    }
-    50% {
-      transform: translateZ(100px);
-    }
+    top: -8px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #3949ab;
+    border-radius: 50%;
+    transition: left 3s linear;
   }
   
