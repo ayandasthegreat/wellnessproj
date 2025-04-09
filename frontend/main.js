@@ -61,8 +61,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     noBreathing.addEventListener("click", () => {
         breathingPrompt.classList.add("hidden");
-        // Optionally show a different screen or reset
-    });
+        inputScreen.classList.add("hidden"); // Hide input screen
+        finalScreen.classList.remove("hidden"); // Show final screen
+      });
     
         // View Notes button
     viewNotesBtn.addEventListener("click", () => {
