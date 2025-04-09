@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const breathingBall = document.getElementById("breathingBall");
     const lineTrack = document.querySelector(".line-track");
 
+    const notesScreen = document.getElementById("notesScreen");
+    const viewNotesBtn = document.getElementById("viewNotesBtn");
+    const backToInputButton = document.getElementById("backToInputButton");
+    const notesList = document.getElementById("notesList");
+    
     thoughtsInput.addEventListener("input", () => {
         submitButton.disabled = !thoughtsInput.value.trim();
     });
@@ -58,6 +63,48 @@ document.addEventListener("DOMContentLoaded", () => {
         breathingPrompt.classList.add("hidden");
         // Optionally show a different screen or reset
     });
+    
+        // View Notes button
+    viewNotesBtn.addEventListener("click", () => {
+        // Hide all other screens
+        document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.add("hidden");
+        });
+        // Show notes screen
+        notesScreen.classList.remove("hidden");
+        loadNotes();
+    });
+    
+    // Back button
+    backToInputButton.addEventListener("click", () => {
+        notesScreen.classList.add("hidden");
+        inputScreen.classList.remove("hidden");
+    });
+    
+    // Modify their existing submit handler to SAVE NOTES
+    submitButton.addEventListener("click", () => {
+        const thoughts = thoughtsInput.value.trim();
+        if (thoughts) {
+        // ===== ADD THIS NOTE-SAVING CODE =====
+        const noteObj = {
+            text: thoughts,
+            timestamp: new Date().toLocaleString()
+        };
+        const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]");
+        savedNotes.push(noteObj);
+        localStorage.setItem("moodNotes", JSON.stringify(savedNotes));
+        // ===== END OF ADDED CODE =====
+    
+        // Their existing fetch() code continues below...
+        submitButton.disabled = true;
+        fetch("http://127.0.0.1:5000/analyze", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: thoughts })
+        })
+        // ... rest of their existing code
+        }
+    });
 
     function startBreathingCycle() {
         let isInhale = true;
@@ -88,3 +135,24 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     }
 });
+
+// Load and display saved notes
+function loadNotes() {
+    notesList.innerHTML = "";
+    const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]");
+  
+    if (savedNotes.length === 0) {
+      notesList.innerHTML = "<p>No notes yet!</p>";
+      return;
+    }
+  
+    savedNotes.forEach(note => {
+      const noteEl = document.createElement("div");
+      noteEl.className = "note-item";
+      noteEl.innerHTML = `
+        <p>${note.text}</p>
+        <small>🕒 ${note.timestamp}</small>
+      `;
+      notesList.appendChild(noteEl);
+    });
+  }
