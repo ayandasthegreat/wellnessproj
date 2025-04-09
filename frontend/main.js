@@ -24,12 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
       submitButton.disabled = !thoughtsInput.value.trim();
   });
 
-  submitButton.addEventListener("click", async () => {
+ submitButton.addEventListener("click", async () => {
     const thoughts = thoughtsInput.value.trim();
     if (thoughts) {
         submitButton.disabled = true;
 
-        // Save to local storage (moved from second listener)
+        // Save to local storage
         const noteObj = {
             text: thoughts,
             timestamp: new Date().toLocaleString()
@@ -40,29 +40,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             // Send the text to the sentiment analysis API
-            const response = await fetch('https://replit.com/@aarushmathadam/sentiment#main.py', {
+            const response = await fetch('http://localhost:5001/analyze', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ text: thoughts })
             });
-
+          
+            if (!response.ok) throw new Error('Network response was not ok');
             const result = await response.json();
 
-            // Change the background color based on sentiment
+            // Smooth transition to new background color
             document.body.style.background = `linear-gradient(to bottom right, ${result.color}, #e8eaf6)`;
 
             // Show the breathing prompt
             breathingPrompt.classList.remove("hidden");
         } catch (error) {
             console.error("Error analyzing sentiment:", error);
-            // Fallback in case API fails
+            // Fallback with smooth transition
+            document.body.style.background = `linear-gradient(to bottom right, #808080, #e8eaf6)`;
             breathingPrompt.classList.remove("hidden");
         }
     }
 });
-
   yesBreathing.addEventListener("click", () => {
       inputScreen.classList.add("hidden");
       breathingScreen.classList.remove("hidden");
