@@ -255,3 +255,132 @@ footer {
 #viewNotesBtn.hidden {
   display: none;
 }
+
+/* Add to your existing CSS */
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f4fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.2s;
+}
+
+.note-item:hover {
+  background-color: #e8eaf6;
+}
+
+.note-content {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  color: #5c6bc0;
+  transition: color 0.2s;
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.delete-btn svg {
+  display: block;
+}
+
+.editable-text {
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.edit-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #c5cae9;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
+
+/* Add to your existing CSS */
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Changed from center */
+  gap: 1rem; /* Adds consistent spacing */
+  background-color: #f3f4fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.2s;
+}
+
+.note-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.note-item:hover {
+  background-color: #e8eaf6;
+}
+
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0; /* Changed from 0.5rem */
+  margin-left: 1rem;
+  color: #5c6bc0;
+  transition: color 0.2s;
+  width: 24px; /* Fixed width */
+  height: 24px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.delete-btn svg {
+  display: block;
+}
+
+.editable-text {
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.edit-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #c5cae9;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
