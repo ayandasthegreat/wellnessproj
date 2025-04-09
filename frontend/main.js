@@ -21,10 +21,35 @@ document.addEventListener("DOMContentLoaded", () => {
       const thoughts = thoughtsInput.value.trim();
       if (thoughts) {
         submitButton.disabled = true;
-        breathingPrompt.classList.remove("hidden");
+    
+        // Call the Flask API
+        fetch("http://127.0.0.1:5000/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ text: thoughts })
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Set background color based on mood
+          document.body.style.transition = "background-color 1s ease";
+          document.body.style.backgroundColor = data.color;
+    
+          // Store mood if needed for later
+          console.log("Mood:", data.mood);
+          console.log("Sentiment score:", data.score);
+    
+          // Show breathing prompt
+          breathingPrompt.classList.remove("hidden");
+        })
+        .catch(error => {
+          console.error("Error analyzing sentiment:", error);
+          alert("Something went wrong. Try again!");
+        });
       }
     });
-  
+    
     yesBreathing.addEventListener("click", () => {
       inputScreen.classList.add("hidden");
       breathingScreen.classList.remove("hidden");
