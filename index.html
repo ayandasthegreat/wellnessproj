@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MoodConnect</title>
-  <link rel="stylesheet" href="frontend/styles.css">
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
   <div class="app-container">
@@ -21,24 +21,43 @@
           <div id="inputSection">
             <textarea id="thoughtsInput" placeholder="Share your thoughts here..."></textarea>
             <button id="submitButton" disabled>
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
               Submit
             </button>
           </div>
         </div>
       </div>
 
-      <!-- Second Screen - Blank Canvas for CSS Elements -->
+      <!-- Second Screen - Animation + Blank Canvas -->
       <div class="screen hidden" id="blankScreen">
         <div class="card blank-canvas">
-          <!-- This is intentionally left blank for custom CSS elements -->
           <div id="customCssSpace" class="custom-css-space">
-            <!-- Custom CSS elements will be added here -->
+            <!-- Animation inserted here -->
+            <section class="container-loader">
+              <aside class="loader">
+                <div style="--s: 0" class="aro"></div>
+                <div style="--s: 1" class="aro"></div>
+                <div style="--s: 2" class="aro"></div>
+                <div style="--s: 3" class="aro"></div>
+                <div style="--s: 4" class="aro"></div>
+                <div style="--s: 5" class="aro"></div>
+                <div style="--s: 6" class="aro"></div>
+                <div style="--s: 7" class="aro"></div>
+                <div style="--s: 8" class="aro"></div>
+                <div style="--s: 9" class="aro"></div>
+                <div style="--s: 10" class="aro"></div>
+                <div style="--s: 11" class="aro"></div>
+                <div style="--s: 12" class="aro"></div>
+                <div style="--s: 13" class="aro"></div>
+                <div style="--s: 14" class="aro"></div>
+              </aside>
+            </section>
           </div>
+
           
-          <button id="newEntryButton" class="secondary-button">
-            New Entry
-          </button>
         </div>
       </div>
     </main>
@@ -48,6 +67,6 @@
     </footer>
   </div>
 
-  <script src="frontend/main.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>
