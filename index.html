@@ -11,7 +11,7 @@
     <header>
       <h1>MoodConnect</h1>
       <p>Track your thoughts and feelings</p>
-      <button id="viewNotesBtn" class="secondary-button header-button">View Notes</button>
+      <button id="viewNotesBtn" class="secondary-button header-button">View Entries</button>
     </header>
 
     <main>
@@ -51,11 +51,14 @@
       <div class="screen hidden" id="finalScreen">
         <div class="card">
           <h2>You're all done. Take on the rest of your day calmly ✨</h2>
+          <button id="newEntryButton" class="new-entry-button">
+            Create New Entry
+          </button>
         </div>
       </div>
       <div class="screen hidden" id="notesScreen">
         <div class="card">
-          <h2>Saved Notes</h2>
+          <h2 class="entries-title">Entries</h2>
           <div class="notes-container" id="notesList"></div>
           <button id="backToInputButton" class="secondary-button">Back</button>
         </div>
