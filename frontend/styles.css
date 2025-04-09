@@ -9,7 +9,14 @@
     min-height: 100vh;
     background: linear-gradient(to bottom right, #e0f7fa, #e8eaf6);
   }
-  
+
+    body {
+    transition: background 1.5s ease-in-out;
+    /* Keep your existing background styles */
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #e0f7fa, #e8eaf6);
+    }
+
   .app-container {
     display: flex;
     flex-direction: column;
