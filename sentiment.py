@@ -3,18 +3,19 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Allow cross-origin requests for frontend testing
+CORS(app)
 
 analyzer = SentimentIntensityAnalyzer()
 
+
 mood_colors = {
-    "Happy": "#FFD700",  # yellow
-    "Content": "#98FB98",  # green
-    "Anxious": "#FF6347",  # red
-    "Tired": "#D3D3D3",  # grey
-    "Sad": "#062f57",  # dark blue
-    "Angry": "#FF4500",  # orange
-    "Very Negative": "#696969",  # gray
+    "Happy": "#FFD700",
+    "Content": "#98FB98",
+    "Anxious": "#FF6347",
+    "Tired": "#D3D3D3",
+    "Sad": "#062f57",
+    "Angry": "#FF4500",
+    "Very Negative": "#696969",
     "Neutral": "#808080"
 }
 
@@ -76,4 +77,4 @@ def analyze():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
