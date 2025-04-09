@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             try {
                 // Send the text to the sentiment analysis API
-                const response = await fetch('http://localhost:5000/analyze', {
+                const response = await fetch('https://replit.com/@aarushmathadam/sentiment#main.py', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
