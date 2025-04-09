@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     const inputScreen = document.getElementById("inputScreen");
-    const blankScreen = document.getElementById("blankScreen");
-    const inputTitle = document.getElementById("inputTitle");
-    const inputSection = document.getElementById("inputSection");
+    const breathingScreen = document.getElementById("breathingScreen");
+    const finalScreen = document.getElementById("finalScreen");
+  
     const thoughtsInput = document.getElementById("thoughtsInput");
     const submitButton = document.getElementById("submitButton");
-    const newEntryButton = document.getElementById("newEntryButton");
-    const customCssSpace = document.getElementById("customCssSpace");
+    const breathingPrompt = document.getElementById("breathingPrompt");
+    const yesBreathing = document.getElementById("yesBreathing");
+    const noBreathing = document.getElementById("noBreathing");
+  
+    const breathingText = document.getElementById("breathingText");
+    const breathingBall = document.getElementById("breathingBall");
+    const lineTrack = document.querySelector(".line-track");
   
     thoughtsInput.addEventListener("input", () => {
       submitButton.disabled = !thoughtsInput.value.trim();
@@ -15,52 +20,49 @@ document.addEventListener("DOMContentLoaded", () => {
     submitButton.addEventListener("click", () => {
       const thoughts = thoughtsInput.value.trim();
       if (thoughts) {
-        inputTitle.classList.add("fade-out");
-        inputSection.classList.add("fade-out");
-  
-        setTimeout(() => {
-          inputScreen.classList.add("hidden");
-          blankScreen.classList.remove("hidden");
-  
-          showLoader();
-  
-          // Optional: Remove or replace loader after 60s
-          setTimeout(() => {
-            // For now it just logs — you can replace this with a transition, message, etc.
-            console.log("60 seconds of animation complete.");
-          }, 60000);
-        }, 500);
+        submitButton.disabled = true;
+        breathingPrompt.classList.remove("hidden");
       }
     });
   
-    newEntryButton.addEventListener("click", () => {
-      blankScreen.classList.add("hidden");
-      customCssSpace.innerHTML = "";
-  
-      setTimeout(() => {
-        thoughtsInput.value = "";
-        submitButton.disabled = true;
-        inputTitle.classList.remove("fade-out");
-        inputSection.classList.remove("fade-out");
-        inputScreen.classList.remove("hidden");
-      }, 300);
+    yesBreathing.addEventListener("click", () => {
+      inputScreen.classList.add("hidden");
+      breathingScreen.classList.remove("hidden");
+      breathingPrompt.classList.add("hidden");
+      startBreathingCycle();
     });
   
-    function showLoader() {
-      customCssSpace.innerHTML = `
-        <section class="container-loader">
-          <aside class="loader">
-            ${Array.from({ length: 15 }, (_, i) => 
-              `<div style="--s: ${i}" class="aro"></div>`).join('')}
-          </aside>
-        </section>
-      `;
-    }
+    noBreathing.addEventListener("click", () => {
+      breathingPrompt.classList.add("hidden");
+    });
   
-    // Optional: background color changer function
-    window.changeGradient = (color1, color2) => {
-      document.body.style.background = `linear-gradient(to bottom right, ${color1}, ${color2})`;
-      return `Background gradient changed to ${color1} and ${color2}`;
-    };
+    function startBreathingCycle() {
+      let isInhale = true;
+      let cycle = 0;
+      const totalCycles = 10; // 10 inhale + 10 exhale = 60s
+  
+      const interval = setInterval(() => {
+        breathingText.style.opacity = 0;
+  
+        setTimeout(() => {
+          breathingText.textContent = isInhale ? "Breathe in" : "Breathe out";
+          breathingText.style.opacity = 1;
+  
+          // Animate ball
+          const trackWidth = lineTrack.offsetWidth - breathingBall.offsetWidth;
+          breathingBall.style.left = isInhale ? "0px" : `${trackWidth}px`;
+  
+          isInhale = !isInhale;
+          cycle++;
+          if (cycle >= totalCycles * 2) {
+            clearInterval(interval);
+            setTimeout(() => {
+              breathingScreen.classList.add("hidden");
+              finalScreen.classList.remove("hidden");
+            }, 3000);
+          }
+        }, 500); // fade delay
+      }, 3000);
+    }
   });
   
