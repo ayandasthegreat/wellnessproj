@@ -18,39 +18,55 @@ document.addEventListener("DOMContentLoaded", () => {
     const backToInputButton = document.getElementById("backToInputButton");
     const notesList = document.getElementById("notesList");
     
+    const newEntryButton = document.getElementById("newEntryButton");
+
     thoughtsInput.addEventListener("input", () => {
         submitButton.disabled = !thoughtsInput.value.trim();
     });
 
-    submitButton.addEventListener("click", async () => {
-        const thoughts = thoughtsInput.value.trim();
-        if (thoughts) {
-            submitButton.disabled = true;
+    // ✅ KEEP THIS AS YOUR ONLY SUBMIT LISTENER ✅
+submitButton.addEventListener("click", async () => {
+    const thoughts = thoughtsInput.value.trim();
+    if (thoughts) {
+        submitButton.disabled = true;
+        
+        // 1. Prepare note object (will add mood data later)
+        const noteObj = {
+            text: thoughts,
+            timestamp: new Date().toLocaleString(),
+            mood: "unknown", // Default value
+            color: "#e8eaf6" // Default gradient color
+        };
+
+        try {
+            // 2. Call sentiment API
+            const response = await fetch('https://replit.com/@aarushmathadam/sentiment#main.py', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: thoughts })
+            });
             
-            try {
-                // Send the text to the sentiment analysis API
-                const response = await fetch('https://replit.com/@aarushmathadam/sentiment#main.py', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ text: thoughts })
-                });
-                
-                const result = await response.json();
-                
-                // Change the background color based on sentiment
-                document.body.style.background = `linear-gradient(to bottom right, ${result.color}, #e8eaf6)`;
-                
-                // Show the breathing prompt
-                breathingPrompt.classList.remove("hidden");
-            } catch (error) {
-                console.error("Error analyzing sentiment:", error);
-                // Fallback in case API fails
-                breathingPrompt.classList.remove("hidden");
-            }
+            const result = await response.json();
+            
+            // 3. Update UI and note data with API results
+            document.body.style.background = `linear-gradient(to bottom right, ${result.color}, #e8eaf6)`;
+            noteObj.mood = result.mood || "unknown"; // Save mood if available
+            noteObj.color = result.color || "#e8eaf6";
+
+        } catch (error) {
+            console.error("API Error:", error);
+            // (Note: We'll still save the note without mood data)
         }
-    });
+
+        // 4. Save note (works for both success/error cases)
+        const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]");
+        savedNotes.push(noteObj);
+        localStorage.setItem("moodNotes", JSON.stringify(savedNotes));
+
+        // 5. Show breathing prompt
+        breathingPrompt.classList.remove("hidden");
+    }
+});
 
     yesBreathing.addEventListener("click", () => {
         inputScreen.classList.add("hidden");
@@ -83,29 +99,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     
     // Modify their existing submit handler to SAVE NOTES
-    submitButton.addEventListener("click", () => {
-        const thoughts = thoughtsInput.value.trim();
-        if (thoughts) {
-        // ===== ADD THIS NOTE-SAVING CODE =====
-        const noteObj = {
-            text: thoughts,
-            timestamp: new Date().toLocaleString()
-        };
-        const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]");
-        savedNotes.push(noteObj);
-        localStorage.setItem("moodNotes", JSON.stringify(savedNotes));
-        // ===== END OF ADDED CODE =====
     
-        // Their existing fetch() code continues below...
-        submitButton.disabled = true;
-        fetch("http://127.0.0.1:5000/analyze", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: thoughts })
-        })
-        // ... rest of their existing code
-        }
-    });
+
+    newEntryButton.addEventListener("click", () => {
+        finalScreen.classList.add("hidden");
+        inputScreen.classList.remove("hidden");
+        thoughtsInput.value = ""; // Clear previous entry
+      });
+
 
     function startBreathingCycle() {
         let isInhale = true;
