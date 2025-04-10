@@ -151,6 +151,53 @@ footer {
   width: auto;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+#breathingPrompt {
+  margin-top: 1.5rem;
+  text-align: center;
+  opacity: 0; /* Start hidden */
+  transition: opacity 1s ease;
+}
+
+#breathingPrompt.visible {
+  opacity: 1; /* Fully visible when class is added */
+}
+
+#breathingPrompt p {
+  margin-bottom: 1.25rem;
+  font-weight: bold;
+  color: #3949ab;
+}
+
+#breathingPrompt .button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+#breathingPrompt button {
+  flex: 1;
+  max-width: 120px;
+  padding: 0.75rem;
+  background-color: #5c6bc0;
+  transition: background-color 0.2s ease, opacity 1s ease;
+  width: auto;
+  opacity: 0; /* Start hidden */
+}
+
+#breathingPrompt.visible button {
+  opacity: 1; /* Fully visible when parent has visible class */
+}
+
 #breathingPrompt button:hover {
   background-color: #3f51b5;
 }
@@ -422,3 +469,4 @@ footer {
     padding: 1rem 0.5rem;
   }
 }
+
