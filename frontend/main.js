@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputScreen = document.getElementById("inputScreen")
   const breathingScreen = document.getElementById("breathingScreen")
   const finalScreen = document.getElementById("finalScreen")
+  const trendsScreen = document.getElementById("trendsScreen")
 
   const thoughtsInput = document.getElementById("thoughtsInput")
   const submitButton = document.getElementById("submitButton")
@@ -15,12 +16,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const notesScreen = document.getElementById("notesScreen")
   const viewNotesBtn = document.getElementById("viewNotesBtn")
+  const viewTrendsBtn = document.getElementById("viewTrendsBtn")
   const backToInputButton = document.getElementById("backToInputButton")
+  const backFromTrendsButton = document.getElementById("backFromTrendsButton")
   const notesList = document.getElementById("notesList")
 
   const backgroundOverlay = document.getElementById("backgroundOverlay")
 
   const newEntryButton = document.getElementById("newEntryButton")
+
+  // Chart objects to store references for later updates
+  let moodTimeChart = null
+  let moodDistributionChart = null
 
   thoughtsInput.addEventListener("input", () => {
     submitButton.disabled = !thoughtsInput.value.trim()
@@ -30,15 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const thoughts = thoughtsInput.value.trim()
     if (thoughts) {
       submitButton.disabled = true
-
-      // Save to local storage
-      const noteObj = {
-        text: thoughts,
-        timestamp: new Date().toLocaleString(),
-      }
-      const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]")
-      savedNotes.push(noteObj)
-      localStorage.setItem("moodNotes", JSON.stringify(savedNotes))
 
       try {
         // Send the text to the sentiment analysis API
@@ -53,6 +51,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!response.ok) throw new Error("Network response was not ok")
         const result = await response.json()
 
+        // Save to local storage with sentiment data
+        const noteObj = {
+          text: thoughts,
+          timestamp: new Date().toLocaleString(),
+          date: new Date().toISOString(),
+          sentiment: result.score,
+          mood: result.mood,
+          color: result.color
+        }
+        
+        const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]")
+        savedNotes.push(noteObj)
+        localStorage.setItem("moodNotes", JSON.stringify(savedNotes))
+
         // Smooth transition to new background color
         fadeBackgroundColor(result.color)
 
@@ -62,6 +74,21 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error analyzing sentiment:", error)
         // Fallback with smooth transition
         fadeBackgroundColor("#808080")
+        
+        // Save to local storage with fallback values
+        const noteObj = {
+          text: thoughts,
+          timestamp: new Date().toLocaleString(),
+          date: new Date().toISOString(),
+          sentiment: 0,
+          mood: "Neutral",
+          color: "#808080"
+        }
+        
+        const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]")
+        savedNotes.push(noteObj)
+        localStorage.setItem("moodNotes", JSON.stringify(savedNotes))
+        
         breathingPrompt.classList.remove("hidden")
       }
     }
@@ -89,16 +116,41 @@ document.addEventListener("DOMContentLoaded", () => {
     // Show notes screen
     notesScreen.classList.remove("hidden")
     loadNotes()
-    // Hide the view entries button
+    // Hide the view buttons
     viewNotesBtn.classList.add("hidden")
+    viewTrendsBtn.classList.add("hidden")
+  })
+  
+  // View Trends button
+  viewTrendsBtn.addEventListener("click", () => {
+    // Hide all other screens
+    document.querySelectorAll(".screen").forEach((screen) => {
+      screen.classList.add("hidden")
+    })
+    // Show trends screen
+    trendsScreen.classList.remove("hidden")
+    generateTrends()
+    // Hide the buttons
+    viewNotesBtn.classList.add("hidden")
+    viewTrendsBtn.classList.add("hidden")
   })
 
-  // Back button
+  // Back button from notes
   backToInputButton.addEventListener("click", () => {
     notesScreen.classList.add("hidden")
     inputScreen.classList.remove("hidden")
-    // Show the view entries button again
+    // Show the view buttons again
     viewNotesBtn.classList.remove("hidden")
+    viewTrendsBtn.classList.remove("hidden")
+  })
+  
+  // Back button from trends
+  backFromTrendsButton.addEventListener("click", () => {
+    trendsScreen.classList.add("hidden")
+    inputScreen.classList.remove("hidden")
+    // Show the view buttons again
+    viewNotesBtn.classList.remove("hidden")
+    viewTrendsBtn.classList.remove("hidden")
   })
 
   newEntryButton.addEventListener("click", () => {
@@ -146,7 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }, 1000); // fade delay
     }, 6000);
-}
+  }
+
   // New function for smooth background color transitions
   function fadeBackgroundColor(newColor) {
     // Set the new background color on the overlay
@@ -163,6 +216,153 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000) // Match this to the transition duration in CSS
 
     console.log(`Transitioning background to color: ${newColor}`)
+  }
+  
+  // Function to generate and display trends
+  function generateTrends() {
+    const savedNotes = JSON.parse(localStorage.getItem("moodNotes") || "[]");
+    
+    if (savedNotes.length === 0) {
+      document.getElementById("mostCommonMood").textContent = "No data";
+      document.getElementById("averageSentiment").textContent = "No data";
+      document.getElementById("totalEntries").textContent = "0";
+      return;
+    }
+    
+    // Calculate stats
+    const moodCounts = {};
+    let totalSentiment = 0;
+    
+    savedNotes.forEach(note => {
+      const mood = note.mood || "Neutral";
+      moodCounts[mood] = (moodCounts[mood] || 0) + 1;
+      totalSentiment += parseFloat(note.sentiment || 0);
+    });
+    
+    // Find most common mood
+    const mostCommonMood = Object.keys(moodCounts).reduce((a, b) => 
+      moodCounts[a] > moodCounts[b] ? a : b);
+    
+    // Calculate average sentiment
+    const avgSentiment = (totalSentiment / savedNotes.length).toFixed(2);
+    
+    // Update stats display
+    document.getElementById("mostCommonMood").textContent = mostCommonMood;
+    document.getElementById("averageSentiment").textContent = avgSentiment;
+    document.getElementById("totalEntries").textContent = savedNotes.length;
+    
+    // Prepare data for charts
+    const processedData = processDataForCharts(savedNotes);
+    
+    // Create charts
+    createMoodTimeChart(processedData.timeData);
+    createMoodDistributionChart(processedData.distributionData);
+  }
+  
+  // Process data for charts
+  function processDataForCharts(notes) {
+    // For time chart (last 10 entries)
+    const recentNotes = [...notes].slice(-10);
+    const timeData = {
+      labels: recentNotes.map(note => {
+        const date = new Date(note.date || Date.parse(note.timestamp));
+        return date.toLocaleDateString();
+      }),
+      datasets: [{
+        label: 'Sentiment Score',
+        data: recentNotes.map(note => parseFloat(note.sentiment || 0)),
+        borderColor: '#3949ab',
+        backgroundColor: 'rgba(57, 73, 171, 0.2)',
+        fill: true,
+        tension: 0.4
+      }]
+    };
+    
+    // For distribution chart
+    const moodCounts = {};
+    const moodColors = {};
+    
+    notes.forEach(note => {
+      const mood = note.mood || "Neutral";
+      moodCounts[mood] = (moodCounts[mood] || 0) + 1;
+      moodColors[mood] = note.color || "#808080";
+    });
+    
+    const distributionData = {
+      labels: Object.keys(moodCounts),
+      datasets: [{
+        data: Object.values(moodCounts),
+        backgroundColor: Object.keys(moodCounts).map(mood => moodColors[mood]),
+        borderWidth: 1
+      }]
+    };
+    
+    return { timeData, distributionData };
+  }
+  
+  // Create mood over time chart
+  function createMoodTimeChart(data) {
+    const ctx = document.getElementById('moodTimeChart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (moodTimeChart) {
+      moodTimeChart.destroy();
+    }
+    
+    moodTimeChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            min: -1,
+            max: 1,
+            ticks: {
+              callback: function(value) {
+                if (value === -1) return "Negative";
+                if (value === 0) return "Neutral";
+                if (value === 1) return "Positive";
+                return "";
+              }
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Your Mood Over Time'
+          }
+        }
+      }
+    });
+  }
+  
+  // Create mood distribution chart
+  function createMoodDistributionChart(data) {
+    const ctx = document.getElementById('moodDistributionChart').getContext('2d');
+    
+    // Destroy existing chart if it exists
+    if (moodDistributionChart) {
+      moodDistributionChart.destroy();
+    }
+    
+    moodDistributionChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          },
+          title: {
+            display: true,
+            text: 'Mood Distribution'
+          }
+        }
+      }
+    });
   }
 })
 
@@ -229,12 +429,10 @@ function loadNotes() {
   });
 }
 
-
-function saveEdit(e) {
+function saveEdit(e, index) {
   const input = e.target;
   const newText = input.value.trim();
   const noteItem = input.closest(".note-content");
-  const index = noteItem.dataset.index;
 
   if (newText) {
     // Update in memory
@@ -269,7 +467,9 @@ function saveEdit(e) {
       
       contentDiv.replaceWith(newInput);
       newInput.focus();
-      newInput.addEventListener("blur", saveEdit);
+      newInput.addEventListener("blur", () => {
+        saveEdit({ target: newInput }, index);
+      });
     });
   } else {
     // If empty, revert to original text with Caveat font
