@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MoodConnect</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="frontend/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Background overlay for smooth transitions -->
@@ -16,6 +16,7 @@
       <h1>MoodConnect</h1>
       <p>Track your thoughts and feelings</p>
       <button id="viewNotesBtn" class="secondary-button header-button">View Entries</button>
+      <button id="viewTrendsBtn" class="secondary-button header-button">View Trends</button>
     </header>
 
     <main>
@@ -41,7 +42,40 @@
         </div>
       </div>
 
-      <!-- Breathing Screen -->
+      <!-- Graphs Section -->
+      <div class="screen hidden" id="trendsScreen">
+        <div class="card trends-card">
+          <h2 class="entries-title">Mood Trends</h2>
+          <div class="trends-container">
+            <div class="chart-container">
+              <h3>Mood Over Time</h3>
+              <canvas id="moodTimeChart"></canvas>
+            </div>
+            <div class="chart-container">
+              <h3>Mood Distribution</h3>
+              <canvas id="moodDistributionChart"></canvas>
+            </div>
+            <div class="stats-container">
+              <div class="stat-card">
+                <h4>Most Common Mood</h4>
+                <p id="mostCommonMood">-</p>
+              </div>
+              <div class="stat-card">
+                <h4>Average Sentiment</h4>
+                <p id="averageSentiment">-</p>
+              </div>
+              <div class="stat-card">
+                <h4>Total Entries</h4>
+                <p id="totalEntries">-</p>
+              </div>
+            </div>
+          </div>
+          <button id="backFromTrendsButton" class="secondary-button">Back</button>
+        </div>
+      </div>
+      
+
+       <!-- Breathing Screen -->
       <div class="screen hidden" id="breathingScreen">
         <div class="card">
           <div class="breathing-text" id="breathingText">Breathe in</div>
@@ -73,7 +107,7 @@
       MoodConnect - Your personal mood tracking companion
     </footer>
 
-    <script src="frontend/main.js"></script>
+    <script src="main.js"></script>
   </div>
 </body>
 </html>
