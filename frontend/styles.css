@@ -1,400 +1,409 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  }
-  
-  body {
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #e0f7fa, #e8eaf6);
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+}
 
-    body {
-    transition: background 1.5s ease-in-out;
-    /* Keep your existing background styles */
-    min-height: 100vh;
-    background: linear-gradient(to bottom right, #e0f7fa, #e8eaf6);
-    }
+body {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #82959f, #cacdef);
+  min-height: 100vh;
+  position: relative; /* For the overlay positioning */
+}
 
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  header {
-    padding: 1.5rem 1rem;
-    text-align: center;
-  }
-  
-  header h1 {
-    font-size: 2rem;
-    color: #3949ab;
-    font-weight: bold;
-  }
-  
-  header p {
-    color: #5c6bc0;
-    margin-top: 0.5rem;
-  }
-  
-  main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .card {
-    width: 100%;
-    max-width: 500px;
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 1.25rem;
-    color: #333;
-    margin-bottom: 1rem;
-  }
-  
-  textarea {
-    width: 100%;
-    min-height: 120px;
-    padding: 0.75rem;
-    border: 1px solid #c5cae9;
-    border-radius: 8px;
-    resize: none;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
-  
-  textarea:focus {
-    outline: none;
-    border-color: #5c6bc0;
-  }
-  
-  button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #3949ab;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  
-  button:hover:not(:disabled) {
-    background-color: #303f9f;
-  }
-  
-  button:disabled {
-    background-color: #c5cae9;
-    cursor: not-allowed;
-  }
-  
-  .hidden {
-    display: none;
-  }
-  
-  footer {
-    padding: 1rem;
-    text-align: center;
-    color: #5c6bc0;
-    font-size: 0.875rem;
-  }
-  
-  /* Breathing Prompt - UPDATED to force side-by-side buttons */
-  #breathingPrompt {
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  
-  #breathingPrompt p {
-    margin-bottom: 1.25rem;
-    font-weight: bold;
-    color: #3949ab;
-  }
-  
-  #breathingPrompt .button-container {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
-  
-  #breathingPrompt button {
-    flex: 1;
-    max-width: 120px;
-    margin: 0;
-    padding: 0.75rem;
-    background-color: #5c6bc0;
-    transition: background-color 0.2s ease;
-    display: inline-flex; /* Force side-by-side */
-    width: auto !important; /* Override any width restrictions */
-  }
-  
-  #breathingPrompt button:hover {
-    background-color: #3f51b5;
-  }
-  
-  /* Breathing Text */
-  .breathing-text {
-    font-size: 2rem;
-    color: #3949ab;
-    margin-bottom: 2rem;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  /* Line Track + Ball */
-  .line-track {
-    width: 100%;
-    max-width: 400px;
-    height: 4px;
-    background-color: #c5cae9;
-    margin: 0 auto;
-    position: relative;
-    border-radius: 2px;
-    overflow: visible;
-  }
-  
-  .ball {
-    position: absolute;
-    top: -8px;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    background-color: #3949ab;
-    border-radius: 50%;
-    transition: left 3s linear;
-  }
-  
-  /* === NOTES PAGE STYLES === */
-  .secondary-button {
-    background-color: #5c6bc0;
-    margin-top: 1rem;
-  }
-  
-  .secondary-button:hover {
-    background-color: #3949ab;
-  }
-  
-  .header-button {
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    width: auto;
-    display: inline-block;
-  }
-  
-  .notes-container {
-    max-height: 60vh;
-    overflow-y: auto;
-    padding: 0.5rem;
-  }
-  
-  .note-item {
-    background-color: #f3f4fd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-  }
-  
-  .note-item small {
-    color: #666;
-    display: block;
-    margin-top: 0.25rem;
-  }
-  
-  /* Add this to your CSS */
-  .entries-title {
-    font-size: 1.75rem;
-    color: #3949ab;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    font-weight: bold;
-    position: relative;
-    padding-bottom: 0.5rem;
-  }
-  
-  .entries-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 25%;
-    width: 50%;
-    height: 2px;
-    background-color: #c5cae9;
-  }
-  
-  /* New Entry Button Styles */
-  .new-entry-button {
-    margin-top: 2rem;
-    padding: 0.75rem;
-    background-color: #5c6bc0;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    transition: background-color 0.3s ease;
-  }
-  
-  .new-entry-button:hover {
-    background-color: #3949ab;
-  }
-  
-  /* If you want to reuse this style elsewhere, you could make it more generic */
-  .secondary-button.with-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  
-  #viewNotesBtn.hidden {
-    display: none;
-  }
-  
-  /* Add to your existing CSS */
-  .note-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #f3f4fd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    transition: background-color 0.2s;
-  }
-  
-  .note-item:hover {
-    background-color: #e8eaf6;
-  }
-  
-  .note-content {
-    flex-grow: 1;
-    cursor: pointer;
-  }
-  
-  .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-left: 1rem;
-    color: #5c6bc0;
-    transition: color 0.2s;
-  }
-  
-  .delete-btn:hover {
-    color: #d32f2f;
-  }
-  
-  .delete-btn svg {
-    display: block;
-  }
-  
-  .editable-text {
-    margin-bottom: 0.5rem;
-    word-break: break-word;
-  }
-  
-  .edit-input {
-    width: 100%;
-    min-height: 60px;
-    padding: 0.5rem;
-    border: 1px solid #c5cae9;
-    border-radius: 4px;
-    resize: vertical;
-    font-family: inherit;
-    font-size: inherit;
-  }
-  
-  .edit-input:focus {
-    outline: none;
-    border-color: #5c6bc0;
-  }
-  
-  /* Add to your existing CSS */
-  .note-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Changed from center */
-    gap: 1rem; /* Adds consistent spacing */
-    background-color: #f3f4fd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    transition: background-color 0.2s;
-  }
-  
-  .note-content {
-    flex-grow: 1;
-    min-width: 0;
-  }
-  
-  .note-item:hover {
-    background-color: #e8eaf6;
-  }
-  
-  
-  .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0; /* Changed from 0.5rem */
-    margin-left: 1rem;
-    color: #5c6bc0;
-    transition: color 0.2s;
-    width: 24px; /* Fixed width */
-    height: 24px; /* Fixed height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0; /* Prevents shrinking */
-  }
-  
-  
-  .delete-btn:hover {
-    color: #d32f2f;
-  }
-  
-  .delete-btn svg {
-    display: block;
-  }
-  
-  .editable-text {
-    margin-bottom: 0.5rem;
-    word-break: break-word;
-  }
-  
-  .edit-input {
-    width: 100%;
-    min-height: 60px;
-    padding: 0.5rem;
-    border: 1px solid #c5cae9;
-    border-radius: 4px;
-    resize: vertical;
-    font-family: inherit;
-    font-size: inherit;
-  }
-  
-  .edit-input:focus {
-    outline: none;
-    border-color: #5c6bc0;
-  }
+/* Background overlay for transitions */
+#backgroundOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Behind all content */
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+  pointer-events: none; /* Allow clicks to pass through */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1; /* Above the background overlay */
+}
+
+header {
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #3949ab;
+  font-weight: bold;
+}
+
+header p {
+  color: #5c6bc0;
+  margin-top: 0.5rem;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.card {
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 0.75rem;
+  border: 1px solid #c5cae9;
+  border-radius: 8px;
+  resize: none;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3949ab;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+button:hover:not(:disabled) {
+  background-color: #303f9f;
+}
+
+button:disabled {
+  background-color: #c5cae9;
+  cursor: not-allowed;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  padding: 1rem;
+  text-align: center;
+  color: #5c6bc0;
+  font-size: 0.875rem;
+}
+
+/* Breathing Prompt - UPDATED to force side-by-side buttons */
+#breathingPrompt {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+#breathingPrompt p {
+  margin-bottom: 1.25rem;
+  font-weight: bold;
+  color: #3949ab;
+}
+
+#breathingPrompt .button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+#breathingPrompt button {
+  flex: 1;
+  max-width: 120px;
+  margin: 0;
+  padding: 0.75rem;
+  background-color: #5c6bc0;
+  transition: background-color 0.2s ease;
+  display: inline-flex; /* Force side-by-side */
+  width: auto !important; /* Override any width restrictions */
+}
+
+#breathingPrompt button:hover {
+  background-color: #3f51b5;
+}
+
+/* Breathing Text */
+.breathing-text {
+  font-size: 2rem;
+  color: #3949ab;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Line Track + Ball */
+.line-track {
+  width: 100%;
+  max-width: 400px;
+  height: 4px;
+  background-color: #c5cae9;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.ball {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #3949ab;
+  border-radius: 50%;
+  transition: left 3s linear;
+}
+
+/* === NOTES PAGE STYLES === */
+.secondary-button {
+  background-color: #5c6bc0;
+  margin-top: 1rem;
+}
+
+.secondary-button:hover {
+  background-color: #3949ab;
+}
+
+.header-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  width: auto;
+  display: inline-block;
+}
+
+.notes-container {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.note-item {
+  background-color: #f3f4fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.note-item small {
+  color: #666;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* Add this to your CSS */
+.entries-title {
+  font-size: 1.75rem;
+  color: #3949ab;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.entries-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background-color: #c5cae9;
+}
+
+/* New Entry Button Styles */
+.new-entry-button {
+  margin-top: 2rem;
+  padding: 0.75rem;
+  background-color: #5c6bc0;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.new-entry-button:hover {
+  background-color: #3949ab;
+}
+
+/* If you want to reuse this style elsewhere, you could make it more generic */
+.secondary-button.with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+#viewNotesBtn.hidden {
+  display: none;
+}
+
+/* Add to your existing CSS */
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f4fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.2s;
+}
+
+.note-item:hover {
+  background-color: #e8eaf6;
+}
+
+.note-content {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  color: #5c6bc0;
+  transition: color 0.2s;
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.delete-btn svg {
+  display: block;
+}
+
+.editable-text {
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.edit-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #c5cae9;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
+
+/* Add to your existing CSS */
+.note-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Changed from center */
+  gap: 1rem; /* Adds consistent spacing */
+  background-color: #f3f4fd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: background-color 0.2s;
+}
+
+.note-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.note-item:hover {
+  background-color: #e8eaf6;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0; /* Changed from 0.5rem */
+  margin-left: 1rem;
+  color: #5c6bc0;
+  transition: color 0.2s;
+  width: 24px; /* Fixed width */
+  height: 24px; /* Fixed height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+.delete-btn:hover {
+  color: #d32f2f;
+}
+
+.delete-btn svg {
+  display: block;
+}
+
+.editable-text {
+  margin-bottom: 0.5rem;
+  word-break: break-word;
+}
+
+.edit-input {
+  width: 100%;
+  min-height: 60px;
+  padding: 0.5rem;
+  border: 1px solid #c5cae9;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #5c6bc0;
+}
