@@ -109,34 +109,44 @@ document.addEventListener("DOMContentLoaded", () => {
       fadeBackgroundColor("#e0f7fa") // Reset to default color
     })
   
-    function startBreathingCycle() {
-      let isInhale = true
-      let cycle = 0
-      const totalCycles = 10 // 10 inhale + 10 exhale = 60s
+   function startBreathingCycle() {
+    let isInhale = true;
+    let cycle = 0;
+    const totalCycles = 10; // 10 inhale + 10 exhale = 60s
   
-      const interval = setInterval(() => {
-        breathingText.style.opacity = 0
+    const interval = setInterval(() => {
+      breathingText.style.opacity = 0;
   
-        setTimeout(() => {
-          breathingText.textContent = isInhale ? "Breathe in" : "Breathe out"
-          breathingText.style.opacity = 1
+      setTimeout(() => {
+        breathingText.textContent = isInhale ? "Breathe in" : "Breathe out";
+        breathingText.style.opacity = 1;
   
-          // Animate ball
-          const trackWidth = lineTrack.offsetWidth - breathingBall.offsetWidth
-          breathingBall.style.left = isInhale ? "0px" : `${trackWidth}px`
+        // Get the height of the line track and the ball
+        const trackHeight = lineTrack.offsetHeight;
+        const ballHeight = breathingBall.offsetHeight;
+
+        // Set the transition duration
+        breathingBall.style.transition = "top 3s ease-in-out";
+        
+        // On inhale, move the ball to the top (0px), on exhale, move it to the bottom (trackHeight - ballHeight)
+        if (isInhale) {
+          breathingBall.style.top = `0px`; // Inhale: Move the ball to the top of the track
+        } else {
+          breathingBall.style.top = `${trackHeight - ballHeight}px`; // Exhale: Move the ball to the bottom of the track
+        }
   
-          isInhale = !isInhale
-          cycle++
-          if (cycle >= totalCycles * 2) {
-            clearInterval(interval)
-            setTimeout(() => {
-              breathingScreen.classList.add("hidden")
-              finalScreen.classList.remove("hidden")
-            }, 3000)
-          }
-        }, 500) // fade delay
-      }, 3000)
-    }
+        isInhale = !isInhale;
+        cycle++;
+        if (cycle >= totalCycles * 2) {
+          clearInterval(interval);
+          setTimeout(() => {
+            breathingScreen.classList.add("hidden");
+            finalScreen.classList.remove("hidden");
+          }, 3000);
+        }
+      }, 1000); // fade delay
+    }, 6000);
+}
   
     // New function for smooth background color transitions
     function fadeBackgroundColor(newColor) {
