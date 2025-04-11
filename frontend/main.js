@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     const newEntryButton = document.getElementById("newEntryButton")
   
-    // Chart objects to store references for later updates
+    
     let moodTimeChart = null
     let moodDistributionChart = null
   
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         submitButton.disabled = true
   
         try {
-          // Send the text to the sentiment analysis API
+          
           const response = await fetch("http://localhost:5001/analyze", {
             method: "POST",
             headers: {
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!response.ok) throw new Error("Network response was not ok")
           const result = await response.json()
         
-          // Save to local storage with sentiment data
+          
           const noteObj = {
             text: thoughts,
             timestamp: new Date().toLocaleString(),
@@ -65,18 +65,17 @@ document.addEventListener("DOMContentLoaded", () => {
           savedNotes.push(noteObj)
           localStorage.setItem("moodNotes", JSON.stringify(savedNotes))
   
-          // Smooth transition to new background color
+          
           fadeBackgroundColor(result.color)
   
-          // Show the breathing prompt based on mood
+          
           showBreathingPromptBasedOnMood(result.mood, result.score)
           
         } catch (error) {
           console.error("Error analyzing sentiment:", error)
-          // Fallback with smooth transition
+
           fadeBackgroundColor("#808080")
-          
-          // Save to local storage with fallback values
+
           const noteObj = {
             text: thoughts,
             timestamp: new Date().toLocaleString(),
@@ -90,16 +89,14 @@ document.addEventListener("DOMContentLoaded", () => {
           savedNotes.push(noteObj)
           localStorage.setItem("moodNotes", JSON.stringify(savedNotes))
           
-          // Show default breathing prompt
           showBreathingPromptBasedOnMood("Neutral", 0)
         }
       }
     })
     
-    // New function to show breathing prompt based on mood with fade-in effect
     function showBreathingPromptBasedOnMood(mood, score) {
       const promptMessage = breathingPrompt.querySelector("p");
-      const needsBreathing = ["tired", "anxious", "sad"].includes(mood.toLowerCase()) || score < -0.6;
+      const needsBreathing = ["tired", "anxious", "sad", "angry", "very negative"].includes(mood.toLowerCase()) || score < -0.6;
       
       if (needsBreathing) {
         promptMessage.textContent = "Sorry to hear you're not doing well today. It is recommended that you first do some breathing exercises.";
@@ -107,13 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
         promptMessage.textContent = "Glad to hear you're doing fine today! Would you still like to do some breathing exercises?";
       }
       
-      // Add button container if it doesn't exist
+      
       let buttonContainer = breathingPrompt.querySelector(".button-container");
       if (!buttonContainer) {
         buttonContainer = document.createElement("div");
         buttonContainer.className = "button-container";
         
-        // Move buttons into container
+        
         buttonContainer.appendChild(yesBreathing);
         buttonContainer.appendChild(noBreathing);
         breathingPrompt.appendChild(buttonContainer);
