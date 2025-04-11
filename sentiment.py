@@ -9,14 +9,14 @@ analyzer = SentimentIntensityAnalyzer()
 
 
 mood_colors = {
-    "Happy": "#FFD700",
-    "Content": "#98FB98",
-    "Anxious": "#FF6347",
-    "Tired": "#D3D3D3",
-    "Sad": "#062f57",
-    "Angry": "#FF4500",
-    "Very Negative": "#696969",
-    "Neutral": "#808080"
+    "Happy": "#FFF9DB",
+    "Content": "#DFF5E3",
+    "Anxious": "#FFE5E0",
+    "Tired": "#E6E2F0",
+    "Sad": "#D0DEEF",
+    "Angry": " #FAD4C0",
+    "Very Negative": "#C0C0C0",
+    "Neutral": "#EFEFEF"
 }
 
 
