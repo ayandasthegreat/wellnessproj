@@ -459,19 +459,90 @@ footer {
   color: #3949ab;
 }
 
+/* Recommendations Styles */
+.recommendations-card {
+  max-width: 600px;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.mood-title {
+  font-size: 2.2rem;
+  color: #3949ab;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.mood-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.recommendations-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem;
+  background-color: #f5f7ff;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.recommendation-item:hover {
+  transform: translateX(5px);
+}
+
+.recommendation-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #3949ab;
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
+}
+
+.recommendation-text {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
 /* Media query for better mobile responsiveness */
 @media (max-width: 768px) {
   .stats-container {
     flex-direction: column;
   }
   
-  .trends-card {
+  .trends-card, .recommendations-card {
     padding: 1rem 0.5rem;
   }
+  
+  .mood-title {
+    font-size: 1.8rem;
+  }
+  
+  .mood-description {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .recommendation-item {
+    padding: 0.5rem;
+  }
 }
-
-/* Add these new styles to your styles.css file */
-
 /* Breathing circle animation */
 .breathing-circle-container {
   display: flex;
@@ -523,31 +594,4 @@ footer {
   0% { transform: scale(1); opacity: 0.7; }
   50% { transform: scale(1.1); opacity: 0.9; }
   100% { transform: scale(1); opacity: 0.7; }
-}
-
-/* Note item colors */
-.note-item {
-  transition: all 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Make delete button more visible on dark backgrounds */
-.note-item .delete-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  width: 28px;
-  height: 28px;
-}
-
-/* Add overlay for better breathing circle effect */
-.breathing-circle-overlay {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(121,134,203,0) 70%);
-  pointer-events: none;
-  z-index: 3;
 }
