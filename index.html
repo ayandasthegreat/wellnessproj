@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MoodConnect</title>
+  <title>Muud</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -14,7 +13,7 @@
   
   <div class="app-container">
     <header>
-      <h1>MoodConnect</h1>
+      <h1>Muud</h1>
       <p>Track your thoughts and feelings</p>
       <button id="viewNotesBtn" class="secondary-button header-button">View Entries</button>
       <button id="viewTrendsBtn" class="secondary-button header-button">View Trends</button>
@@ -87,18 +86,25 @@
         </div>
       </div>
 
-      <!-- Final Screen -->
+      <!-- Final Screen with Recommendations -->
       <div class="screen hidden" id="finalScreen">
-        <div class="card">
-          <h2>You're all done. Take on the rest of your day calmly ✨</h2>
+        <div class="card recommendations-card">
+          <h2 id="moodTitle" class="mood-title">Mood</h2>
+          <p id="moodDescription" class="mood-description">Description will appear here...</p>
+          
+          <div id="recommendationsContainer" class="recommendations-container">
+            <!-- Recommendations will be added dynamically -->
+          </div>
+          
           <button id="newEntryButton" class="new-entry-button">
             Create New Entry
           </button>
         </div>
       </div>
+      
       <div class="screen hidden" id="notesScreen">
         <div class="card">
-          <h2 class="entries-title">View Journal</h2>
+          <h2 class="entries-title">View Entries</h2>
           <div class="notes-container" id="notesList"></div>
           <button id="backToInputButton" class="secondary-button">Back</button>
         </div>
@@ -106,7 +112,7 @@
     </main>
 
     <footer>
-      MoodConnect - Your personal mood tracking companion
+      Muud - Your personal mood tracking companion
     </footer>
 
     <script src="main.js"></script>
