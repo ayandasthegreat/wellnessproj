@@ -12,7 +12,7 @@ body, .app-container {
 
 body {
   background: linear-gradient(to bottom right, #82959f, #cacdef);
-  position: relative; /* For the overlay positioning */
+  position: relative; 
 }
 
 #backgroundOverlay {
@@ -21,17 +21,17 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Behind all content */
+  z-index: -1;
   opacity: 0;
   transition: opacity 2s ease-in-out;
-  pointer-events: none; /* Allow clicks to pass through */
+  pointer-events: none; 
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 1; /* Above the background overlay */
+  z-index: 1;
 }
 
 header {
@@ -123,7 +123,7 @@ footer {
   font-size: 0.875rem;
 }
 
-/* Breathing Prompt */
+
 #breathingPrompt {
   margin-top: 1.5rem;
   text-align: center;
@@ -163,12 +163,12 @@ footer {
 #breathingPrompt {
   margin-top: 1.5rem;
   text-align: center;
-  opacity: 0; /* Start hidden */
+  opacity: 0; 
   transition: opacity 1s ease;
 }
 
 #breathingPrompt.visible {
-  opacity: 1; /* Fully visible when class is added */
+  opacity: 1; 
 }
 
 #breathingPrompt p {
@@ -191,18 +191,18 @@ footer {
   background-color: #5c6bc0;
   transition: background-color 0.2s ease, opacity 1s ease;
   width: auto;
-  opacity: 0; /* Start hidden */
+  opacity: 0;
 }
 
 #breathingPrompt.visible button {
-  opacity: 1; /* Fully visible when parent has visible class */
+  opacity: 1; 
 }
 
 #breathingPrompt button:hover {
   background-color: #3f51b5;
 }
 
-/* Breathing Text */
+
 .breathing-text {
   font-size: 2rem;
   color: #3949ab;
@@ -211,10 +211,10 @@ footer {
   transition: opacity 0.5s ease-in-out;
 }
 
-/* Line Track + Ball */
+
 .line-track {
-  width: 4px;                    /* Narrow width */
-  height: 300px;                 /* Taller height for vertical line */
+  width: 4px;                   
+  height: 300px;                 
   background-color: #c5cae9;
   margin: 0 auto;
   position: relative;
@@ -224,16 +224,16 @@ footer {
 
 .ball {
   position: absolute;
-  left: calc(50% - 10px);         /* Center the ball horizontally */
+  left: calc(50% - 10px);       
   width: 20px;
   height: 20px;
   background-color: #3949ab;
   border-radius: 50%;
   transition: top 3s ease-in-out;
-  top: 100%;                     /* Start at the bottom */
+  top: 100%;                    
 }
 
-/* Button Styles */
+
 .secondary-button, .new-entry-button {
   background-color: #5c6bc0;
 }
@@ -255,7 +255,6 @@ footer {
   transition: background-color 0.3s ease;
 }
 
-/* Notes Container */
 .notes-container {
   max-height: 60vh;
   overflow-y: auto;
@@ -305,8 +304,8 @@ footer {
   font-weight: 500;
   font-family: 'Caveat', cursive;
   font-size: 1.3rem;
-  overflow-y: auto; /* Scroll if content is too long */
-  padding-right: 5px; /* Prevents text from touching scrollbar */
+  overflow-y: auto; 
+  padding-right: 5px; 
 }
 
 .note-footer {
@@ -327,7 +326,7 @@ footer {
   flex-grow: 1;
 }
 
-/* Delete Button */
+
 .delete-btn {
   background: none;
   border: none;
@@ -375,7 +374,7 @@ footer {
   border-color: #5c6bc0;
 }
 
-/* Entries Title */
+
 .entries-title {
   font-size: 1.75rem;
   color: #3949ab;
@@ -396,7 +395,7 @@ footer {
   background-color: #c5cae9;
 }
 
-/* Button with icon */
+
 .secondary-button.with-icon {
   display: flex;
   align-items: center;
@@ -408,7 +407,7 @@ footer {
   display: none;
 }
 
-/* Trends Screen Styles */
+
 .trends-card {
   max-width: 800px;
 }
@@ -459,7 +458,7 @@ footer {
   color: #3949ab;
 }
 
-/* Recommendations Styles */
+
 .recommendations-card {
   max-width: 600px;
   padding: 2rem;
@@ -520,7 +519,7 @@ footer {
   color: #333;
 }
 
-/* Media query for better mobile responsiveness */
+
 @media (max-width: 768px) {
   .stats-container {
     flex-direction: column;
@@ -543,7 +542,7 @@ footer {
     padding: 0.5rem;
   }
 }
-/* Breathing circle animation */
+
 .breathing-circle-container {
   display: flex;
   justify-content: center;
